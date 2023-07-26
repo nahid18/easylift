@@ -1,1 +1,3 @@
-# easylift: liftover in R with genomicRanges and chain files
+# easylift: liftOver in R
+
+easylift performs liftOver given genomicRanges and chain file
