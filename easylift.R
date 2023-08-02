@@ -1,5 +1,6 @@
 library(rtracklayer)
 library(GenomicRanges)
+library(R.utils)
 
 easylift <- function(gr, to, chain) {
   if (is.na(genome(gr))) {
@@ -12,11 +13,10 @@ easylift <- function(gr, to, chain) {
     seqlevelsStyle(gr) <- "UCSC"
   }
 
-
   # Check if the chain file is gzipped and unzip if needed
   if (tools::file_ext(chain) == "gz") {
     tmp_dir <- tempdir()
-    unzipped_chain <- file.path(tmp_dir, "unzipped.chain")
+    unzipped_chain <- file.path(tmp_dir, "tmp.chain")
     gunzip(chain, destname=unzipped_chain, overwrite=TRUE, remove=FALSE)
     chain <- unzipped_chain
   }
@@ -55,8 +55,5 @@ chain <- "data/hg19ToHg38.over.chain.gz"
 
 lifted <- easylift(gr, to, chain)
 
-print(gr)
-print(lifted)
-print(seqlengths(lifted))
-print(mcols(lifted))
-print(length(gr) - length(lifted))
+print(seqinfo(gr))
+print(seqinfo(lifted))
