@@ -25,8 +25,8 @@ easylift <- function(gr, to, chain) {
   ch <- import.chain(chain)
   
   # Check if the 'to' genome is valid and available
-  to_genome_info <- getChromInfoFromUCSC(to, assembled.molecules.only = TRUE, as.Seqinfo = TRUE)
-  if (is.null(to_genome_info)) {
+  to_seqinfo <- getChromInfoFromUCSC(to, assembled.molecules.only = TRUE, as.Seqinfo = TRUE)
+  if (is.null(to_seqinfo)) {
     stop(
       paste("Error: The genome", to, "is not available or recognized.")
     )
@@ -34,15 +34,9 @@ easylift <- function(gr, to, chain) {
   
   # LiftOver the genomic coordinates
   cur <- unlist(liftOver(gr, ch))
-  genome(cur) <- to
-  
-  # Update the seqinfo with the target genome information
-  lifted_seqlevels <- seqlevels(cur)[genome(cur) %in% to]
-  if (length(lifted_seqlevels) == 0) {
-    stop("Error: LiftOver did not produce any valid results for the target genome.")
-  }
-  to_seqinfo <- to_genome_info[lifted_seqlevels]
-  seqinfo(cur) <- update(seqinfo(cur), to_seqinfo)
+
+  seqlevels(cur) <- seqlevels(to_seqinfo)
+  seqinfo(cur) <- to_seqinfo
   
   return(cur)
 }
