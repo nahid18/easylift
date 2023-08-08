@@ -1,8 +1,3 @@
-library("GenomeInfoDb")
-library("rtracklayer")
-library("R.utils")
-library("tools")
-
 #' Lift genomic coordinates from one genome assembly to another.
 #'
 #' This function takes a GRanges object with genomic coordinates in one genome
@@ -13,6 +8,10 @@ library("tools")
 #' @param chain The path to the chain file containing the liftover mapping.
 #' Can be provided in gzipped or non-gzipped format.
 #' @return A GRanges object with lifted genomic coordinates.
+#' @import GenomeInfoDb
+#' @import rtracklayer
+#' @import R.utils
+#' @import tools
 #' @export
 easylift <- function(gr, to, chain) {
   if (is.na(GenomeInfoDb::genome(gr))) {
