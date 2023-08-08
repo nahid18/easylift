@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 The goal of `easylift` is to perform genomic liftover given `GRanges` and `chain` file.
 
-## Installation instructions
+## Installation
 
 <!-- Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `easylift` from [Bioconductor](http://bioconductor.org/) using the following code: -->
 

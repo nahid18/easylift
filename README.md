@@ -14,7 +14,7 @@ pulls](https://img.shields.io/github/issues-pr/nahid18/easylift)](https://github
 The goal of `easylift` is to perform genomic liftover given `GRanges`
 and `chain` file.
 
-## Installation instructions
+## Installation
 
 <!-- Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `easylift` from [Bioconductor](http://bioconductor.org/) using the following code: -->
 <!-- ```{r 'install', eval = FALSE} -->
