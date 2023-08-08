@@ -9,7 +9,7 @@ Authors@R:
     )
 Description: The package performs genomic liftover given genomicRanges and chain file.
 License: MIT + file LICENSE
-URL: https://github.com/nahid18/easylift
+URL: https://github.com/nahid18/easylift, https://nahid18.github.io/easylift/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
