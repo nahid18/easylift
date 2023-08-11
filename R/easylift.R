@@ -12,11 +12,12 @@
 #' @import rtracklayer
 #' @import R.utils
 #' @import tools
+#' @import BiocFileCache
 #' @export
 easylift <- function(gr, to, chain) {
   if (is.na(GenomeInfoDb::genome(gr))) {
     stop(
-      "Error: The genome information for the 'gr' object is missing (NA). Please set the genome before using easylift."
+      "The genome information for the 'gr' object is missing (NA). Please set the genome before using easylift."
     )
   }
   # Convert the input GRanges to the "UCSC" seqlevels style if not already
@@ -24,6 +25,18 @@ easylift <- function(gr, to, chain) {
     GenomeInfoDb::seqlevelsStyle(gr) <- "UCSC"
   }
 
+  if (missing(chain)) {
+    bfc <- BiocFileCache()
+    capTo <- paste0(toupper(substr(to,1,1)),substr(to,2,nchar(to))) # capitalize first letter
+    trychainfile <- paste0(genome(gr),"To",capTo,".over.chain")
+    q <- bfcquery(bfc, trychainfile)
+    if (nrow(q) >= 1) {
+      chain <- bfc[[q$rid[1]]]
+    } else {
+      stop("Chain file not specified and not found in BiocFileCache")
+    }
+  }
+  
   # Check if the chain file is gzipped and unzip if needed
   if (tools::file_ext(chain) == "gz") {
     tmp_dir <- tempdir()
@@ -39,7 +52,7 @@ easylift <- function(gr, to, chain) {
   to_seqinfo <- GenomeInfoDb::getChromInfoFromUCSC(to, assembled.molecules.only = TRUE, as.Seqinfo = TRUE)
   if (is.null(to_seqinfo)) {
     stop(
-      paste("Error: The genome", to, "is not available or recognized.")
+      paste("The genome", to, "is not available or recognized.")
     )
   }
 

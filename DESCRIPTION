@@ -1,11 +1,11 @@
 Package: easylift
 Title: An R package to perform genomic liftOver
-Version: 0.0.1
+Version: 0.0.2
 Date: 2023-08-05
 Authors@R: 
     c(
     person("Abdullah", "Al Nahid", email= "abdnahid56@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4390-0768")), 
-    person("Michael", "Love", email = "milove@email.unc.edu", role = c("aut", "rev"), comment = c(ORCID = "0000-0001-8401-0545"))
+    person("Michael", "Love", email = "michaelisaiahlove@gmail.com", role = c("aut", "rev"), comment = c(ORCID = "0000-0001-8401-0545"))
     )
 Description: The package performs genomic liftover given genomicRanges and chain file.
 License: MIT + file LICENSE
@@ -17,4 +17,5 @@ Imports:
     rtracklayer,
     GenomeInfoDb,
     R.utils,
-    tools
+    tools,
+    BiocFileCache
