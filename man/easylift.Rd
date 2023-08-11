@@ -4,10 +4,10 @@
 \alias{easylift}
 \title{Lift genomic coordinates from one genome assembly to another.}
 \usage{
-easylift(gr, to, chain)
+easylift(x, to, chain)
 }
 \arguments{
-\item{gr}{A GRanges object with genomic coordinates in the original assembly.}
+\item{x}{A GRanges object with genomic coordinates in the original assembly.}
 
 \item{to}{The target genome assembly (e.g., "hg38").}
 
