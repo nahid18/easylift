@@ -23,6 +23,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 ```{r style, echo = FALSE, results = 'asis'}
   BiocStyle::markdown()
 ```
@@ -35,6 +36,7 @@ knitr::opts_chunk$set(
 ```
 
 # Getting Started
+
 ## Installation
 
 ```{r install, eval=FALSE}
@@ -42,6 +44,7 @@ BiocManager::install("nahid18/easylift")
 ```
 
 ## Import
+
 ```{r setup}
 library("easylift")
 library("GenomicRanges")
@@ -50,27 +53,33 @@ library("GenomicRanges")
 ## Arguments
 
 Create a `GRanges` object, assign a genome to it, and specify chain file
+
 ```{r example}
 gr <- GRanges(seqname = Rle(paste("chr", 1, sep = "")),
               ranges = IRanges(start = 1, end = 200000))
 genome(gr) <- "hg19"
 to <- "hg38"
-chain <- "../inst/extdata/hg19ToHg38.over.chain.gz"
+
+# you should next just point directly to a file on your machine.
+# here, we use the `system.file()` function because this is a vignette
+chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
 
 gr
 ```
 
 ## Run
+
 ```{r run}
 easylift(gr, to, chain)
 ```
 
 ## Cache (optional)
+
 If you have the chain file in cache with `BiocFileCache` package, you don't have to specify `chain` argument
+
 ```{r bioCache, eval=FALSE}
 gr |> easylift("hg38")
 ```
-
 
 # Citation
 
@@ -79,7 +88,6 @@ To cite package ‘easylift’ in publications use:
   Al Nahid A, Love M (2023). _easylift: An R package to perform
   genomic liftOver_. R package version 0.0.2,
   https://github.com/nahid18/easylift.
-
 
 A BibTeX entry for LaTeX users is
 
