@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # easylift
 
 <!-- badges: start -->
@@ -16,14 +14,6 @@ and `chain` file.
 
 ## Installation
 
-<!-- Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `easylift` from [Bioconductor](http://bioconductor.org/) using the following code: -->
-<!-- ```{r 'install', eval = FALSE} -->
-<!-- if (!requireNamespace("BiocManager", quietly = TRUE)) { -->
-<!--     install.packages("BiocManager") -->
-<!-- } -->
-<!-- BiocManager::install("easylift") -->
-<!-- ``` -->
-
 Get the latest development version from
 [GitHub](https://github.com/nahid18/easylift) with:
 
@@ -33,15 +23,14 @@ BiocManager::install("nahid18/easylift")
 
 ## Usage
 
-First, import the libraries
+Import the libraries
 
 ``` r
 library("easylift")
 library("GenomicRanges")
 ```
 
-Then, execute the code below. This assumes you already downloaded the
-required chain file.
+Call `easylift` with `GRanges` object, target genome and chain file.
 
 ``` r
 gr <- GRanges(seqname = Rle(paste("chr", 1, sep = "")),
@@ -49,6 +38,7 @@ gr <- GRanges(seqname = Rle(paste("chr", 1, sep = "")),
 genome(gr) <- "hg19"
 to <- "hg38"
 chain <- "hg19ToHg38.over.chain.gz"
+
 lifted <- easylift(gr, to, chain)
 ```
 
@@ -64,9 +54,9 @@ A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {easylift: An R package to perform genomic liftOver},
-        author = {Abdullah {Al Nahid} and Michael Love},
+        author = {Abdullah Al Nahid and Michael Love},
         year = {2023},
-        note = {R package version 0.0.1},
+        note = {R package version 0.0.2},
         url = {https://github.com/nahid18/easylift},
       }
 

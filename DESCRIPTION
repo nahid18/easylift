@@ -19,3 +19,8 @@ Imports:
     R.utils,
     tools,
     BiocFileCache
+Suggests: 
+    testthat (>= 3.0.0),
+    GenomicRanges,
+    IRanges
+Config/testthat/edition: 3
