@@ -95,3 +95,9 @@ Please note that the `easylift` was only made possible thanks to many other R an
 # Code of Conduct
 
 Please note that the `easylift` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+
+# Session information
+
+```{r}
+sessionInfo()
+```
