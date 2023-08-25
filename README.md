@@ -39,7 +39,7 @@ genome(gr) <- "hg19"
 to <- "hg38"
 chain <- "hg19ToHg38.over.chain.gz"
 
-lifted <- easylift(gr, to, chain)
+easylift(gr, to, chain)
 ```
 
 ## Citation
@@ -47,7 +47,7 @@ lifted <- easylift(gr, to, chain)
 To cite package ‘easylift’ in publications use:
 
 Al Nahid A, Love M (2023). *easylift: An R package to perform genomic
-liftOver*. R package version 0.0.1,
+liftOver*. R package version 0.0.2,
 <https://github.com/nahid18/easylift>.
 
 A BibTeX entry for LaTeX users is
