@@ -1,23 +1,19 @@
 ---
-title: "Introduction to easylift"
+title: "Perform Genomic Liftover"
 abstract: >
   An R/Bioconductor library to perform genomic liftover between different genome assemblies with `GRanges` and `chain` file. Source Code: https://github.com/nahid18/easylift
 author:
-- Abdullah Al Nahid^[Department of Biochemistry and Molecular Biology, Shahjalal University of Science and Technology, Sylhet-3114, Bangladesh]
-- Michael I. Love^[Biostatistics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA, Genetics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA]
-date: "`r format(Sys.time(), '%d %B %Y')`"
-output:
-  pdf_document:
-    toc: true
-    toc_depth: 2
-    latex_engine: xelatex
-  html_document:
-    self_contained: yes
-    toc: true
-    toc_float: true
-    toc_depth: 2
+- name: Abdullah Al Nahid
+  affiliation: 
+  - "Department of Biochemistry and Molecular Biology, Shahjalal University of Science and Technology, Sylhet, Bangladesh"
+- name: Michael I. Love
+  affiliation: 
+  - "Biostatistics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA"
+  - "Genetics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA"
+  email: michaelisaiahlove@gmail.com
+output: BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{easylift}
+  %\VignetteIndexEntry{Perform Genomic Liftover}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
