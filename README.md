@@ -33,7 +33,7 @@ library("GenomicRanges")
 Call `easylift` with `GRanges` object, target genome and chain file.
 
 ``` r
-gr <- GRanges(seqname = Rle(paste("chr", 1, sep = "")),
+gr <- GRanges(seqname = Rle(c("chr1", "chr2"), c(100000, 100000)),
               ranges = IRanges(start = 1, end = 200000))
 genome(gr) <- "hg19"
 to <- "hg38"
@@ -47,7 +47,7 @@ easylift(gr, to, chain)
 To cite package ‘easylift’ in publications use:
 
 Al Nahid A, Love M (2023). *easylift: An R package to perform genomic
-liftover*. R package version 0.0.4,
+liftover*. R package version 0.0.5,
 <https://github.com/nahid18/easylift>.
 
 A BibTeX entry for LaTeX users is
@@ -56,7 +56,7 @@ A BibTeX entry for LaTeX users is
         title = {easylift: An R package to perform genomic liftover},
         author = {Abdullah Al Nahid and Michael Love},
         year = {2023},
-        note = {R package version 0.0.4},
+        note = {R package version 0.0.5},
         url = {https://github.com/nahid18/easylift},
       }
 

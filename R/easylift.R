@@ -8,6 +8,16 @@
 #' @param chain The path to the chain file containing the liftover mapping.
 #' Can be provided in gzipped or non-gzipped format.
 #' @return A GRanges object with lifted genomic coordinates.
+#' @examples
+#' # Lift over the coordinates of the first 10 genes in the hg19 assembly
+#' # to the hg38 assembly
+#' library(GenomicRanges)
+#' library(easylift)
+#' gr <- GRanges(seqname = Rle(c("chr1", "chr2"), c(100000, 100000)), 
+#' ranges = IRanges(start = 1, end = 200000))
+#' genome(gr) <- "hg19"
+#' chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
+#' easylift(gr, "hg38", chain)
 #' @import GenomeInfoDb
 #' @import rtracklayer
 #' @import R.utils
