@@ -1,3 +1,3 @@
-# easylift 0.0.5
+# easylift 0.99.0
 
-* Initial Bioconductor submission.
+* Submitted to Bioconductor
