@@ -19,16 +19,34 @@ A GRanges object with lifted genomic coordinates.
 }
 \description{
 This function takes a GRanges object with genomic coordinates in one genome
-assembly and lifts them to another genome assembly using a chain file.
+assembly and lifts them to target genome assembly using a chain file.
 }
 \examples{
 # Lift over the coordinates of the first 10 genes in the hg19 assembly
 # to the hg38 assembly
-library(GenomicRanges)
 library(easylift)
-gr <- GRanges(seqname = Rle(c("chr1", "chr2"), c(100000, 100000)), 
-ranges = IRanges(start = 1, end = 200000))
+gr <- GRanges(
+  seqname = Rle(c("chr1", "chr2"), c(100000, 100000)),
+  ranges = IRanges(start = 1, end = 200000)
+)
 genome(gr) <- "hg19"
+
+# here, we use the `system.file()` function because the chain file is in the
+# package (however if you need to point to any other file on your machine,
+# just do 'chain <- "path/to/your/file"'):
 chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
 easylift(gr, "hg38", chain)
+
+# To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
+# chain_file <- "/path/to/your/chainfile.chain"
+# bfc <- BiocFileCache()
+# bfcadd(bfc, chain_file)
+
+# Then, you can use it in `easylift` like this:
+# easylift(gr, "hg38")
+
+}
+\seealso{
+\code{\link[rtracklayer]{liftOver}} function from the \code{rtracklayer} package,
+which is the basis for \code{easylift}.
 }

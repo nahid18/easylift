@@ -1,18 +1,20 @@
 Package: easylift
 Title: An R package to perform genomic liftover
-Version: 0.99.0
-Date: 2023-08-05
+Version: 0.99.1
+Date: 2023-09-25
 Authors@R: 
     c(
     person("Abdullah", "Al Nahid", email= "abdnahid56@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4390-0768")), 
     person("Michael", "Love", email = "michaelisaiahlove@gmail.com", role = c("aut", "rev"), comment = c(ORCID = "0000-0001-8401-0545"))
     )
-Description: The package performs genomic liftover different genome assemblies given GRanges, genome and chain file. If the chain file is cached with BiocFileCache, the chain file argument can be omitted.
+Description: The package performs genomic liftover between different genome assemblies given GRanges object, target genome and chain file. If the chain file is cached with BiocFileCache, the chain file argument can be omitted.
 License: MIT + file LICENSE
 URL: https://github.com/nahid18/easylift, https://nahid18.github.io/easylift
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends:
+    GenomicRanges
 Imports:
     rtracklayer,
     GenomeInfoDb,
@@ -21,7 +23,6 @@ Imports:
     BiocFileCache
 Suggests: 
     testthat (>= 3.0.0),
-    GenomicRanges,
     IRanges,
     knitr,
     BiocStyle,

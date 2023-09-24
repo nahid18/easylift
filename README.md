@@ -18,7 +18,7 @@ Get the latest development version from
 [GitHub](https://github.com/nahid18/easylift) with:
 
 ``` r
-BiocManager::install("nahid18/easylift")
+BiocManager::install("easylift")
 ```
 
 ## Usage
@@ -27,19 +27,41 @@ Import the libraries
 
 ``` r
 library("easylift")
-library("GenomicRanges")
 ```
 
 Call `easylift` with `GRanges` object, target genome and chain file.
 
 ``` r
-gr <- GRanges(seqname = Rle(c("chr1", "chr2"), c(100000, 100000)),
-              ranges = IRanges(start = 1, end = 200000))
+gr <- GRanges(
+  seqname = Rle(
+    c("chr1", "chr2"), 
+    c(100000, 100000)
+  ),
+  ranges = IRanges(
+    start = 1, 
+    end = 200000
+  )
+)
 genome(gr) <- "hg19"
 to <- "hg38"
 chain <- "hg19ToHg38.over.chain.gz"
 
 easylift(gr, to, chain)
+```
+
+To use `BiocFileCache` for the chain file, you can add it to the cache
+as follows:
+
+``` r
+chain_file <- "/path/to/your/chainfile.chain"
+bfc <- BiocFileCache()
+bfcadd(bfc, chain_file)
+```
+
+Then, you can use it in `easylift` like this:
+
+``` r
+easylift(gr, "hg38")
 ```
 
 ## Citation
@@ -56,7 +78,7 @@ A BibTeX entry for LaTeX users is
         title = {easylift: An R package to perform genomic liftover},
         author = {Abdullah Al Nahid and Michael Love},
         year = {2023},
-        note = {R package version 0.99.0},
+        note = {R package version 0.99.1},
         url = {https://github.com/nahid18/easylift},
       }
 

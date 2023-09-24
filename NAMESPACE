@@ -3,6 +3,7 @@
 export(easylift)
 import(BiocFileCache)
 import(GenomeInfoDb)
+import(GenomicRanges)
 import(R.utils)
 import(rtracklayer)
 import(tools)

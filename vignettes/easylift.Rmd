@@ -34,14 +34,13 @@ knitr::opts_chunk$set(
 ## Installation
 
 ```{r install, eval=FALSE}
-BiocManager::install("nahid18/easylift")
+BiocManager::install("easylift")
 ```
 
 ## Import
 
 ```{r setup}
 library("easylift")
-library("GenomicRanges")
 ```
 
 ## Arguments
@@ -49,13 +48,20 @@ library("GenomicRanges")
 Create a `GRanges` object, assign a genome to it, and specify chain file
 
 ```{r example}
-gr <- GRanges(seqname = Rle(paste("chr", 1, sep = "")),
-              ranges = IRanges(start = 1, end = 200000))
+gr <- GRanges(
+  seqname = Rle(
+    c("chr1", "chr2"), 
+    c(100000, 100000)
+  ),
+  ranges = IRanges(
+    start = 1, end = 200000
+  )
+)
 genome(gr) <- "hg19"
 to <- "hg38"
-
-# you should next just point directly to a file on your machine.
-# here, we use the `system.file()` function because this is a vignette
+# Here, we use the `system.file()` function because the chain file is in the
+# package (however if you need to point to any other file on your machine,
+# just do 'chain <- "path/to/your/file"'):
 chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
 
 gr
@@ -67,11 +73,18 @@ gr
 easylift(gr, to, chain)
 ```
 
-## Cache (optional)
+## BiocFileCache
 
-If you have the chain file in cache with `BiocFileCache` package, you don't have to specify `chain` argument
-
+To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
 ```{r bioCache, eval=FALSE}
+chain_file <- "/path/to/your/chainfile.chain"
+bfc <- BiocFileCache()
+bfcadd(bfc, chain_file)
+```
+
+Then, you can use it in `easylift` like this:
+
+```{r bioCache2, eval=FALSE}
 gr |> easylift("hg38")
 ```
 
