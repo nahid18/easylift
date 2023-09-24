@@ -65,7 +65,7 @@ easylift <- function(x, to, chain) {
     trychainfile <- paste0(genome(x), "To", capTo, ".over.chain")
     q <- bfcquery(bfc, trychainfile)
     if (nrow(q) >= 1) {
-      chain <- bfc[[q$rid[2]]]
+      chain <- bfc[[q$rid[1]]]
     } else {
       stop(
         "Chain file not specified and not found in BiocFileCache. Look for a chain file named '",
