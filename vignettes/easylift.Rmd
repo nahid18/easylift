@@ -10,7 +10,6 @@ author:
   affiliation: 
   - "Biostatistics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA"
   - "Genetics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA"
-  email: michaelisaiahlove@gmail.com
 output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Perform Genomic Liftover}
@@ -75,9 +74,11 @@ easylift(gr, to, chain)
 
 ## BiocFileCache
 
-To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
+To use `BiocFileCache` for the chain file, you can add it to the cache
+as follows:
+
 ```{r bioCache, eval=FALSE}
-chain_file <- "/path/to/your/chainfile.chain"
+chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
 bfcadd(bfc, chain_file)
 ```
@@ -87,6 +88,10 @@ Then, you can use it in `easylift` like this:
 ```{r bioCache2, eval=FALSE}
 gr |> easylift("hg38")
 ```
+
+`easylift` here will look for a chain file with the proper name 
+(`genome(gr)` + "To" + Capitalized-`to`-argument + `.over.chain`)
+in the BiocFileCache default location.
 
 # Citation
 

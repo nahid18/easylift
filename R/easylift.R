@@ -6,8 +6,11 @@
 #' @param x A GRanges object with genomic coordinates in the original assembly.
 #' @param to The target genome assembly (e.g., "hg38").
 #' @param chain The path to the chain file containing the liftover mapping.
-#' Can be provided in gzipped or non-gzipped format.
+#' Can be provided in gzipped or non-gzipped format. If omitted, the function
+#' will look in the default BiocFileCache for a properly named chain file.
+#'
 #' @return A GRanges object with lifted genomic coordinates.
+#' 
 #' @examples
 #' # Lift over the coordinates of the first 10 genes in the hg19 assembly
 #' # to the hg38 assembly
@@ -25,7 +28,7 @@
 #' easylift(gr, "hg38", chain)
 #' 
 #' # To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
-#' # chain_file <- "/path/to/your/chainfile.chain"
+#' # chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 #' # bfc <- BiocFileCache()
 #' # bfcadd(bfc, chain_file)
 #'

@@ -12,7 +12,8 @@ easylift(x, to, chain)
 \item{to}{The target genome assembly (e.g., "hg38").}
 
 \item{chain}{The path to the chain file containing the liftover mapping.
-Can be provided in gzipped or non-gzipped format.}
+Can be provided in gzipped or non-gzipped format. If omitted, the function
+will look in the default BiocFileCache for a properly named chain file.}
 }
 \value{
 A GRanges object with lifted genomic coordinates.
@@ -38,7 +39,7 @@ chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
 easylift(gr, "hg38", chain)
 
 # To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
-# chain_file <- "/path/to/your/chainfile.chain"
+# chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 # bfc <- BiocFileCache()
 # bfcadd(bfc, chain_file)
 

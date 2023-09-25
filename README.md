@@ -53,7 +53,7 @@ To use `BiocFileCache` for the chain file, you can add it to the cache
 as follows:
 
 ``` r
-chain_file <- "/path/to/your/chainfile.chain"
+chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
 bfcadd(bfc, chain_file)
 ```
