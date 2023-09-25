@@ -89,10 +89,6 @@ Then, you can use it in `easylift` like this:
 gr |> easylift("hg38")
 ```
 
-`easylift` here will look for a chain file with the proper name 
-(`genome(gr)` + "To" + Capitalized-`to`-argument + `.over.chain`)
-in the BiocFileCache default location.
-
 # Citation
 
 To cite package `easylift` in publications use:
