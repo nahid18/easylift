@@ -49,7 +49,7 @@ test_that("easylift succeeds with BiocFileCache", {
   temp_dir <- tempdir()
 
   # Create a test chain file in the temporary directory
-  chain_file <- system.file("extdata", "hg19ToHg38.over.chain", package = "easylift")
+  chain_file <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
 
   # Test 6: Check if the chain file exists
   expect_true(file.exists(chain_file), "Chain file should exist.")

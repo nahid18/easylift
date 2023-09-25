@@ -57,7 +57,7 @@ easylift(gr, to, chain)
 To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
 
 ```{r example2, eval = FALSE}
-chain_file <- "/path/to/your/chainfile.chain"
+chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
 bfcadd(bfc, chain_file)
 ```
@@ -71,7 +71,7 @@ easylift(gr, "hg38")
 To cite package ‘easylift’ in publications use:
 
   Al Nahid A, Love M (2023). _easylift: An R package to perform
-  genomic liftover_. R package version 0.99.2,
+  genomic liftover_. R package version 0.99.4,
   <https://github.com/nahid18/easylift>.
 
 
@@ -82,7 +82,7 @@ A BibTeX entry for LaTeX users is
     title = {easylift: An R package to perform genomic liftover},
     author = {Abdullah Al Nahid and Michael Love},
     year = {2023},
-    note = {R package version 0.99.2},
+    note = {R package version 0.99.4},
     url = {https://github.com/nahid18/easylift},
   }
 ```
