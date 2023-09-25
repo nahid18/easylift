@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +101,7 @@
 <span><span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="va">to</span>, <span class="va">chain</span><span class="op">)</span></span></code></pre></div>
 <p>To use <code>BiocFileCache</code> for the chain file, you can add it to the cache as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/chainfile.chain"</span></span>
+<code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/hg19ToHg38.over.chain.gz"</span></span>
 <span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">bfcadd</span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></code></pre></div>
 <p>Then, you can use it in <code>easylift</code> like this:</p>

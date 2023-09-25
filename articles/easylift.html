@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,14 +79,10 @@ I. Love</h4>
             <address class="author_afil">
       Biostatistics Department, University of North Carolina-Chapel
 Hill, Chapel Hill, NC, USAGenetics Department, University of North
-Carolina-Chapel Hill, Chapel Hill, NC,
-USA<br><a class="author_email" href="mailto:#"></a><a href="mailto:michaelisaiahlove@gmail.com" class="email">michaelisaiahlove@gmail.com</a>
-      </address>
-                  
-      
-      <small class="dont-index">Source: <a href="https://github.com/nahid18/easylift/blob/HEAD/vignettes/easylift.Rmd" class="external-link"><code>vignettes/easylift.Rmd</code></a></small>
+Carolina-Chapel Hill, Chapel Hill, NC, USA<br><small class="dont-index">Source: <a href="https://github.com/nahid18/easylift/blob/HEAD/vignettes/easylift.Rmd" class="external-link"><code>vignettes/easylift.Rmd</code></a></small>
       <div class="d-none name"><code>easylift.Rmd</code></div>
     </address>
+</address>
 </div>
 
     
@@ -218,12 +214,16 @@ specify chain file</p>
 <p>To use <code>BiocFileCache</code> for the chain file, you can add it
 to the cache as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/chainfile.chain"</span></span>
+<code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/hg19ToHg38.over.chain.gz"</span></span>
 <span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">bfcadd</span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></code></pre></div>
 <p>Then, you can use it in <code>easylift</code> like this:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gr</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/easylift.html">easylift</a></span><span class="op">(</span><span class="st">"hg38"</span><span class="op">)</span></span></code></pre></div>
+<p><code>easylift</code> here will look for a chain file with the proper
+name (<code>genome(gr)</code> + “To” +
+Capitalized-<code>to</code>-argument + <code>.over.chain</code>) in the
+BiocFileCache default location.</p>
 </div>
 </div>
 <div class="section level2">
@@ -280,7 +280,7 @@ by its terms.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] easylift_0.99.2      GenomicRanges_1.52.0 GenomeInfoDb_1.36.3 </span></span>
+<span><span class="co">#&gt; [1] easylift_0.99.3      GenomicRanges_1.52.0 GenomeInfoDb_1.36.3 </span></span>
 <span><span class="co">#&gt; [4] IRanges_2.34.1       S4Vectors_0.38.2     BiocGenerics_0.46.0 </span></span>
 <span><span class="co">#&gt; [7] BiocStyle_2.28.1    </span></span>
 <span><span class="co">#&gt; </span></span>

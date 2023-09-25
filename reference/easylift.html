@@ -12,7 +12,7 @@ assembly and lifts them to target genome assembly using a chain file."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +72,8 @@ assembly and lifts them to target genome assembly using a chain file.</p>
 
 <dt>chain</dt>
 <dd><p>The path to the chain file containing the liftover mapping.
-Can be provided in gzipped or non-gzipped format.</p></dd>
+Can be provided in gzipped or non-gzipped format. If omitted, the function
+will look in the default BiocFileCache for a properly named chain file.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -121,7 +122,7 @@ which is the basis for <code>easylift</code>.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 25 sequences (1 circular) from hg38 genome</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># To use `BiocFileCache` for the chain file, you can add it to the cache as follows:</span></span></span>
-<span class="r-in"><span><span class="co"># chain_file &lt;- "/path/to/your/chainfile.chain"</span></span></span>
+<span class="r-in"><span><span class="co"># chain_file &lt;- "/path/to/your/hg19ToHg38.over.chain.gz"</span></span></span>
 <span class="r-in"><span><span class="co"># bfc &lt;- BiocFileCache()</span></span></span>
 <span class="r-in"><span><span class="co"># bfcadd(bfc, chain_file)</span></span></span>
 <span class="r-in"><span></span></span>
