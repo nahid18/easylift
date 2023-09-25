@@ -67,9 +67,9 @@ test_that("easylift succeeds with BiocFileCache", {
   expect_true(nrow(q) > 0, "Chain file should exist in cache.")
 
   # Create a test GRanges object
-  gr <- GRanges(
+  gr <- GenomicRanges::GRanges(
     seqname = Rle(c("chr1", "chr2"), c(100000, 100000)),
-    ranges = IRanges(start = 1, end = 200000)
+    ranges = IRanges::IRanges(start = 1, end = 200000)
   )
 
   genome(gr) <- "hg19"

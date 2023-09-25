@@ -46,16 +46,18 @@
 #' which is the basis for \code{easylift}.
 #' @export
 easylift <- function(x, to, chain) {
-  # Check if genome(x) has multiple unique values
+  # Check if GRanges object is provided
+  if (anyNA(GenomeInfoDb::genome(x))) {
+    stop("The genome information is missing. Please set genome(x) before using easylift.")
+  }
+
+  # Check if the input GRanges contains genomic coordinates from multiple genomes
   unique_genomes <- unique(GenomeInfoDb::genome(x))
   if (length(unique_genomes) > 1) {
     stop("The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
          "Please provide 'x' with coordinates from a single genome assembly.")
   }
 
-  if (anyNA(GenomeInfoDb::genome(x))) {
-    stop("The genome information is missing. Please set genome(x) before using easylift.")
-  }
   # Convert the input GRanges to the "UCSC" seqlevels style if not already
   if (GenomeInfoDb::seqlevelsStyle(x) != "UCSC") {
     GenomeInfoDb::seqlevelsStyle(x) <- "UCSC"
