@@ -1,6 +1,6 @@
 Package: easylift
 Title: An R package to perform genomic liftover
-Version: 0.99.5
+Version: 0.99.6
 Date: 2023-09-25
 Authors@R: 
     c(
@@ -14,13 +14,13 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends:
-    GenomicRanges
+    GenomicRanges,
+    BiocFileCache
 Imports:
     rtracklayer,
     GenomeInfoDb,
     R.utils,
-    tools,
-    BiocFileCache
+    tools
 Suggests: 
     testthat (>= 3.0.0),
     IRanges,

@@ -32,20 +32,20 @@ gr <- GRanges(
 )
 genome(gr) <- "hg19"
 
-# here, we use the `system.file()` function because the chain file is in the
+# Here, we use the `system.file()` function because the chain file is in the
 # package (however if you need to point to any other file on your machine,
-# just do 'chain <- "path/to/your/file"'):
-chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
+# just do 'chain <- "path/to/your/hg19ToHg38.over.chain.gz"'):
+chain <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
 easylift(gr, "hg38", chain)
 
+\dontrun{
 # To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
-# chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
-# bfc <- BiocFileCache()
-# bfcadd(bfc, chain_file)
-
+chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
+bfc <- BiocFileCache()
+bfcadd(bfc, chain_file)
 # Then, you can use it in `easylift` like this:
-# easylift(gr, "hg38")
-
+easylift(gr, "hg38")
+}
 }
 \seealso{
 \code{\link[rtracklayer]{liftOver}} function from the \code{rtracklayer} package,

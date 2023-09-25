@@ -10,7 +10,7 @@
 #' will look in the default BiocFileCache for a properly named chain file.
 #'
 #' @return A GRanges object with lifted genomic coordinates.
-#' 
+#'
 #' @examples
 #' # Lift over the coordinates of the first 10 genes in the hg19 assembly
 #' # to the hg38 assembly
@@ -21,20 +21,20 @@
 #' )
 #' genome(gr) <- "hg19"
 #'
-#' # here, we use the `system.file()` function because the chain file is in the
+#' # Here, we use the `system.file()` function because the chain file is in the
 #' # package (however if you need to point to any other file on your machine,
-#' # just do 'chain <- "path/to/your/file"'):
-#' chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
+#' # just do 'chain <- "path/to/your/hg19ToHg38.over.chain.gz"'):
+#' chain <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
 #' easylift(gr, "hg38", chain)
-#' 
+#'
+#' \dontrun{
 #' # To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
-#' # chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
-#' # bfc <- BiocFileCache()
-#' # bfcadd(bfc, chain_file)
-#'
+#' chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
+#' bfc <- BiocFileCache()
+#' bfcadd(bfc, chain_file)
 #' # Then, you can use it in `easylift` like this:
-#' # easylift(gr, "hg38")
-#'
+#' easylift(gr, "hg38")
+#' }
 #' @import GenomicRanges
 #' @import GenomeInfoDb
 #' @import rtracklayer
@@ -54,8 +54,10 @@ easylift <- function(x, to, chain) {
   # Check if the input GRanges contains genomic coordinates from multiple genomes
   unique_genomes <- unique(GenomeInfoDb::genome(x))
   if (length(unique_genomes) > 1) {
-    stop("The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
-         "Please provide 'x' with coordinates from a single genome assembly.")
+    stop(
+      "The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
+      "Please provide 'x' with coordinates from a single genome assembly."
+    )
   }
 
   # Convert the input GRanges to the "UCSC" seqlevels style if not already
@@ -65,20 +67,13 @@ easylift <- function(x, to, chain) {
 
   if (missing(chain)) {
     bfc <- BiocFileCache()
-    capTo <-
-      paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to))) # capitalize first letter
-    trychainfile <- paste0(genome(x), "To", capTo, ".over.chain")
+    capTo <- paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to)))
+    trychainfile <- paste0(unique_genomes, "To", capTo, ".over.chain")
     q <- bfcquery(bfc, trychainfile)
     if (nrow(q) >= 1) {
       chain <- bfc[[q$rid[1]]]
     } else {
-      stop(
-        "Chain file not specified and not found in BiocFileCache. Look for a chain file named '",
-        trychainfile,
-        "' for liftover to '",
-        to,
-        "' in your BiocFileCache or provide the 'chain' argument with the file path."
-      )
+      stop(trychainfile, " file not found!")
     }
   }
 

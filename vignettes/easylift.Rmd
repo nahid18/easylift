@@ -60,8 +60,8 @@ genome(gr) <- "hg19"
 to <- "hg38"
 # Here, we use the `system.file()` function because the chain file is in the
 # package (however if you need to point to any other file on your machine,
-# just do 'chain <- "path/to/your/file"'):
-chain <- system.file("extdata/hg19ToHg38.over.chain.gz", package="easylift")
+# just do 'chain <- "path/to/your/hg19ToHg38.over.chain.gz"'):
+chain <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
 
 gr
 ```
@@ -95,7 +95,7 @@ in the BiocFileCache default location.
 
 # Citation
 
-To cite package ‘easylift’ in publications use:
+To cite package `easylift` in publications use:
 
   Al Nahid A, Love M (2023). _easylift: An R package to perform
   genomic liftover_. R package version 0.0.4,

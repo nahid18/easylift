@@ -66,10 +66,10 @@ easylift(gr, "hg38")
 
 ## Citation
 
-To cite package ‘easylift’ in publications use:
+To cite package `easylift` in publications use:
 
 Al Nahid A, Love M (2023). *easylift: An R package to perform genomic
-liftover*. R package version 0.99.5,
+liftover*. R package version 0.99.6,
 <https://github.com/nahid18/easylift>.
 
 A BibTeX entry for LaTeX users is
@@ -78,7 +78,7 @@ A BibTeX entry for LaTeX users is
         title = {easylift: An R package to perform genomic liftover},
         author = {Abdullah Al Nahid and Michael Love},
         year = {2023},
-        note = {R package version 0.99.5},
+        note = {R package version 0.99.6},
         url = {https://github.com/nahid18/easylift},
       }
 
