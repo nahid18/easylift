@@ -12,7 +12,7 @@ assembly and lifts them to target genome assembly using a chain file."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ assembly and lifts them to target genome assembly using a chain file.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">easylift</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">chain</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">easylift</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">chain</span>, <span class="va">bfc</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +74,11 @@ assembly and lifts them to target genome assembly using a chain file.</p>
 <dd><p>The path to the chain file containing the liftover mapping.
 Can be provided in gzipped or non-gzipped format. If omitted, the function
 will look in the default BiocFileCache for a properly named chain file.</p></dd>
+
+
+<dt>bfc</dt>
+<dd><p>A BiocFileCache object, if not provided (most typically)
+the default location will be used.</p></dd>
 
 </dl></div>
     <div class="section level2">
