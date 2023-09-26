@@ -1,4 +1,4 @@
-# easylift 0.99.7
+# easylift 0.99.9
 
 * Bug fixes and further improvements to the code.
 

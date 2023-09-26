@@ -15,7 +15,7 @@ easylift(x, to, chain, bfc)
 Can be provided in gzipped or non-gzipped format. If omitted, the function
 will look in the default BiocFileCache for a properly named chain file.}
 
-\item{bfc}{A BiocFileCache object, if not provided (most typically)
+\item{bfc}{A BiocFileCache object (optional), if not provided (most typically)
 the default location will be used.}
 }
 \value{
@@ -33,21 +33,31 @@ gr <- GRanges(
   seqname = Rle(c("chr1", "chr2"), c(100000, 100000)),
   ranges = IRanges(start = 1, end = 200000)
 )
+# Here, "hg19" is the source genome
 genome(gr) <- "hg19"
 
 # Here, we use the `system.file()` function because the chain file is in the
 # package (however if you need to point to any other file on your machine,
 # just do 'chain <- "path/to/your/hg19ToHg38.over.chain.gz"'):
 chain <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
+
+# Here, "hg38" is the target genome
 easylift(gr, "hg38", chain)
 
 \dontrun{
-# To use `BiocFileCache` for the chain file, you can add it to the cache as follows:
+# To use `BiocFileCache` for the chain file, add it to the cache as follows:
 chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
-bfcadd(bfc, chain_file)
-# Then, you can use it in `easylift` like this:
+
+# Add chain file to cache if already not available
+if (nrow(bfcquery(bfc, basename(chain_file))) == 0)
+   bfcadd(bfc, chain_file)
+
+# Then, use it in `easylift` like this:
+
 easylift(gr, "hg38")
+# or
+gr |> easylift("hg38")
 }
 }
 \seealso{
