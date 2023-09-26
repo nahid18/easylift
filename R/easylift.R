@@ -8,6 +8,8 @@
 #' @param chain The path to the chain file containing the liftover mapping.
 #' Can be provided in gzipped or non-gzipped format. If omitted, the function
 #' will look in the default BiocFileCache for a properly named chain file.
+#' @param bfc A BiocFileCache object, if not provided (most typically)
+#' the default location will be used.
 #'
 #' @return A GRanges object with lifted genomic coordinates.
 #'
@@ -45,7 +47,7 @@
 #' \code{\link[rtracklayer]{liftOver}} function from the \code{rtracklayer} package,
 #' which is the basis for \code{easylift}.
 #' @export
-easylift <- function(x, to, chain) {
+easylift <- function(x, to, chain, bfc) {
   # Check if GRanges object is provided
   if (anyNA(GenomeInfoDb::genome(x))) {
     stop("The genome information is missing. Please set genome(x) before using easylift.")
@@ -66,7 +68,9 @@ easylift <- function(x, to, chain) {
   }
 
   if (missing(chain)) {
-    bfc <- BiocFileCache()
+    if (missing(bfc)) {
+      bfc <- BiocFileCache()
+    }
     capTo <- paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to)))
     trychainfile <- paste0(unique_genomes, "To", capTo, ".over.chain")
     q <- bfcquery(bfc, trychainfile)

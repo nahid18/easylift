@@ -45,17 +45,15 @@ test_that("easylift succeeds with BiocFileCache", {
   # Load package
   library("easylift")
 
-  # Define a temporary directory for testing
-  temp_dir <- tempdir()
-
   # Create a test chain file in the temporary directory
   chain_file <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
 
   # Test 6: Check if the chain file exists
   expect_true(file.exists(chain_file), "Chain file should exist.")
 
-  # Create a BiocFileCache instance
-  bfc <- BiocFileCache()
+  # Create a BiocFileCache instance (to a temp location for this test script)
+  path <- tempfile()
+  bfc <- BiocFileCache(path, ask = FALSE)
 
   # Add the test chain file to the cache
   bfcadd(bfc, chain_file)
@@ -76,7 +74,7 @@ test_that("easylift succeeds with BiocFileCache", {
 
   # Perform easylift with the target assembly
   tryCatch({
-    result <- easylift(gr, "hg38")
+    result <- easylift(x=gr, to="hg38", bfc=bfc)
   }, error = function(e) {
     cat("Error message:", conditionMessage(e), "\n")
     stop("easylift encountered an error.")

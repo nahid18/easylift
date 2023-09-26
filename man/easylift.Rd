@@ -4,7 +4,7 @@
 \alias{easylift}
 \title{Lift genomic coordinates from one genome assembly to another.}
 \usage{
-easylift(x, to, chain)
+easylift(x, to, chain, bfc)
 }
 \arguments{
 \item{x}{A GRanges object with genomic coordinates in the original assembly.}
@@ -14,6 +14,9 @@ easylift(x, to, chain)
 \item{chain}{The path to the chain file containing the liftover mapping.
 Can be provided in gzipped or non-gzipped format. If omitted, the function
 will look in the default BiocFileCache for a properly named chain file.}
+
+\item{bfc}{A BiocFileCache object, if not provided (most typically)
+the default location will be used.}
 }
 \value{
 A GRanges object with lifted genomic coordinates.
