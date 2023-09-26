@@ -77,11 +77,12 @@ easylift <- function(x, to, chain, bfc) {
     GenomeInfoDb::seqlevelsStyle(x) <- "UCSC"
   }
 
-  if (missing(chain)) {
-    if (missing(bfc)) {
+  if (.get_chain_file_status(chain)) {
+    is_bfc_faulty <- .get_bfc_status(bfc)
+    if (is_bfc_faulty) {
       bfc <- BiocFileCache()
     }
-    chain <- .get_chain_from_BiocFileCache(unique_genomes, to, bfc)
+    chain <- .get_chain_from_BiocFileCache(unique_genomes, to, bfc, is_bfc_faulty)
   }
 
   # Check if the chain file is gzipped and unzip if needed
@@ -117,18 +118,31 @@ easylift <- function(x, to, chain, bfc) {
   return(cur)
 }
 
-### 'from' and 'to' are single strings containing UCSC genome names, and 'bfc' is a BiocFileCache object
-.get_chain_from_BiocFileCache <- function(from, to, bfc) {
+### 'from' and 'to' are single strings of UCSC genome names, and 'bfc' is a BiocFileCache object
+.get_chain_from_BiocFileCache <- function(from, to, bfc, is_bfc_faulty) {
   capTo <- paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to)))
   trychainfile <- paste0(from, "To", capTo, ".over.chain")
   q <- bfcquery(bfc, trychainfile)
   if (nrow(q) == 0) {
+    bfc_str <- if (is_bfc_faulty) "default" else "provided"
     stop(
       "Chain file not specified and filename with ",
       trychainfile,
-      " pattern not found in BiocFileCache default location."
+      " pattern not found in BiocFileCache ",
+      bfc_str,
+      " location."
     )
   }
   chain <- bfc[[q$rid[1]]]
   return(chain)
+}
+
+# chain is expected to be string path of a chain file
+.get_chain_file_status <- function(chain) {
+  return(missing(chain) || is.null(chain))
+}
+
+### bfc is expected to be a BiocFileCache object
+.get_bfc_status <- function(bfc) {
+  return(missing(bfc) || is.null(bfc) || !class(bfc) %in% c("BiocFileCache"))
 }
