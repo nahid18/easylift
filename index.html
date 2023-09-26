@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,31 +94,41 @@
 <span>    end <span class="op">=</span> <span class="fl">200000</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co"># Here, "hg19" is the source genome</span></span>
 <span><span class="fu">genome</span><span class="op">(</span><span class="va">gr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"hg19"</span></span>
-<span><span class="va">to</span> <span class="op">&lt;-</span> <span class="st">"hg38"</span></span>
 <span><span class="va">chain</span> <span class="op">&lt;-</span> <span class="st">"hg19ToHg38.over.chain.gz"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="va">to</span>, <span class="va">chain</span><span class="op">)</span></span></code></pre></div>
-<p>To use <code>BiocFileCache</code> for the chain file, you can add it to the cache as follows:</p>
+<span><span class="co"># Here, "hg38" is the target genome</span></span>
+<span><span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span>, <span class="va">chain</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="biocfilecache">BiocFileCache<a class="anchor" aria-label="anchor" href="#biocfilecache"></a>
+</h3>
+<p>To use <code>BiocFileCache</code> for the chain file, add it to the cache as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/hg19ToHg38.over.chain.gz"</span></span>
 <span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcadd</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></code></pre></div>
-<p>Then, you can use it in <code>easylift</code> like this:</p>
+<span></span>
+<span><span class="co"># Add chain file to cache if already not available</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcquery</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">chain_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcadd</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></code></pre></div>
+<p>Then, use it in <code>easylift</code> like this:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span><span class="op">)</span> </span>
+<span><span class="co"># or</span></span>
+<span><span class="va">gr</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/easylift.html">easylift</a></span><span class="op">(</span><span class="st">"hg38"</span><span class="op">)</span> </span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To cite package <code>easylift</code> in publications use:</p>
-<p>Al Nahid A, Love M (2023). <em>easylift: An R package to perform genomic liftover</em>. R package version 0.99.7, <a href="https://github.com/nahid18/easylift" class="external-link uri">https://github.com/nahid18/easylift</a>.</p>
+<p>Al Nahid A, Love M (2023). <em>easylift: An R package to perform genomic liftover</em>. R package version 0.99.9, <a href="https://github.com/nahid18/easylift" class="external-link uri">https://github.com/nahid18/easylift</a>.</p>
 <p>A BibTeX entry for LaTeX users is</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {easylift<span class="sc">:</span> An R package to perform genomic liftover},</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {Abdullah Al Nahid and Michael Love},</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2023</span>},</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">99.7</span>},</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">99.9</span>},</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>nahid18<span class="sc">/</span>easylift},</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <p>Please note that the <code>easylift</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>

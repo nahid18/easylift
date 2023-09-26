@@ -12,7 +12,7 @@ assembly and lifts them to target genome assembly using a chain file."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@ will look in the default BiocFileCache for a properly named chain file.</p></dd>
 
 
 <dt>bfc</dt>
-<dd><p>A BiocFileCache object, if not provided (most typically)
+<dd><p>A BiocFileCache object (optional), if not provided (most typically)
 the default location will be used.</p></dd>
 
 </dl></div>
@@ -102,12 +102,15 @@ which is the basis for <code>easylift</code>.</p></div>
 <span class="r-in"><span>  seqname <span class="op">=</span> <span class="fu">Rle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chr1"</span>, <span class="st">"chr2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100000</span>, <span class="fl">100000</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  ranges <span class="op">=</span> <span class="fu">IRanges</span><span class="op">(</span>start <span class="op">=</span> <span class="fl">1</span>, end <span class="op">=</span> <span class="fl">200000</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Here, "hg19" is the source genome</span></span></span>
 <span class="r-in"><span><span class="fu">genome</span><span class="op">(</span><span class="va">gr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"hg19"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Here, we use the `system.file()` function because the chain file is in the</span></span></span>
 <span class="r-in"><span><span class="co"># package (however if you need to point to any other file on your machine,</span></span></span>
 <span class="r-in"><span><span class="co"># just do 'chain &lt;- "path/to/your/hg19ToHg38.over.chain.gz"'):</span></span></span>
 <span class="r-in"><span><span class="va">chain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"hg19ToHg38.over.chain.gz"</span>, package <span class="op">=</span> <span class="st">"easylift"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Here, "hg38" is the target genome</span></span></span>
 <span class="r-in"><span><span class="fu">easylift</span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span>, <span class="va">chain</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 300000 ranges and 0 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            seqnames        ranges strand</span>
@@ -127,12 +130,19 @@ which is the basis for <code>easylift</code>.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 25 sequences (1 circular) from hg38 genome</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># To use `BiocFileCache` for the chain file, you can add it to the cache as follows:</span></span></span>
+<span class="r-in"><span><span class="co"># To use `BiocFileCache` for the chain file, add it to the cache as follows:</span></span></span>
 <span class="r-in"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/hg19ToHg38.over.chain.gz"</span></span></span>
 <span class="r-in"><span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcadd</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Then, you can use it in `easylift` like this:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add chain file to cache if already not available</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcquery</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">chain_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcadd</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Then, use it in `easylift` like this:</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">easylift</span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># or</span></span></span>
+<span class="r-in"><span><span class="va">gr</span> <span class="op">|&gt;</span> <span class="fu">easylift</span><span class="op">(</span><span class="st">"hg38"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
