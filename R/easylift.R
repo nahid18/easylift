@@ -58,31 +58,20 @@
 #' which is the basis for \code{easylift}.
 #' @export
 easylift <- function(x, to, chain, bfc) {
-  # Check if GRanges object is provided
-  if (anyNA(GenomeInfoDb::genome(x))) {
-    stop("The genome information is missing. Please set genome(x) before using easylift.")
-  }
-
-  # Check if the input GRanges contains genomic coordinates from multiple genomes
-  unique_genomes <- unique(GenomeInfoDb::genome(x))
-  if (length(unique_genomes) > 1) {
-    stop(
-      "The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
-      "Please provide 'x' with coordinates from a single genome assembly."
-    )
-  }
+  args <- .perform_sanity_check(x, to, chain, bfc)
+  x <- args$x
+  to <- args$to
+  chain <- args$chain
+  bfc <- args$bfc
+  unique_genomes <- args$unique_genomes
 
   # Convert the input GRanges to the "UCSC" seqlevels style if not already
   if (GenomeInfoDb::seqlevelsStyle(x) != "UCSC") {
     GenomeInfoDb::seqlevelsStyle(x) <- "UCSC"
   }
 
-  if (.get_chain_file_status(chain)) {
-    is_bfc_faulty <- .get_bfc_status(bfc)
-    if (is_bfc_faulty) {
-      bfc <- BiocFileCache()
-    }
-    chain <- .get_chain_from_BiocFileCache(unique_genomes, to, bfc, is_bfc_faulty)
+  if (.is_faulty(chain)) {
+    chain <- .get_chain_from_BiocFileCache(unique_genomes, to, bfc)
   }
 
   # Check if the chain file is gzipped and unzip if needed
@@ -119,12 +108,20 @@ easylift <- function(x, to, chain, bfc) {
 }
 
 ### 'from' and 'to' are single strings of UCSC genome names, and 'bfc' is a BiocFileCache object
-.get_chain_from_BiocFileCache <- function(from, to, bfc, is_bfc_faulty) {
-  capTo <- paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to)))
+.get_chain_from_BiocFileCache <- function(from, to, bfc) {
+  is_bfc_faulty <- .is_faulty(bfc)
+  if (is_bfc_faulty) {
+    bfc <- BiocFileCache()
+  }
+  capTo <-
+    paste0(toupper(substr(to, 1, 1)), substr(to, 2, nchar(to)))
   trychainfile <- paste0(from, "To", capTo, ".over.chain")
   q <- bfcquery(bfc, trychainfile)
   if (nrow(q) == 0) {
-    bfc_str <- if (is_bfc_faulty) "default" else "provided"
+    bfc_str <- if (is_bfc_faulty)
+      "default"
+    else
+      "provided"
     stop(
       "Chain file not specified and filename with ",
       trychainfile,
@@ -138,11 +135,69 @@ easylift <- function(x, to, chain, bfc) {
 }
 
 # chain is expected to be string path of a chain file
-.get_chain_file_status <- function(chain) {
-  return(missing(chain) || is.null(chain))
+.is_faulty <- function(y) {
+  return(missing(y) || is.null(y))
 }
 
-### bfc is expected to be a BiocFileCache object
-.get_bfc_status <- function(bfc) {
-  return(missing(bfc) || is.null(bfc) || !class(bfc) %in% c("BiocFileCache"))
+.is_available <- function(y) {
+  return(!missing(y) && !is.null(y))
+}
+
+.perform_sanity_check <- function(x, to, chain, bfc) {
+  if (missing(chain)) {
+    chain <- NULL
+  }
+  if (missing(bfc)) {
+    bfc <- NULL
+  }
+
+  if (.is_faulty(x)) {
+    stop("Please provide a 'GRanges' object 'x' with genomic coordinates.")
+  }
+
+  if (!is(x, "GRanges") && !isS4(x)) {
+    stop("Please provide a valid 'GRanges' object 'x'.")
+  }
+
+  if (.is_faulty(to)) {
+    stop("Please provide the target genome assembly 'to'.")
+  }
+
+  if (!is.character(to)) {
+    stop("Please provide the target genome assembly 'to' as a string.")
+  }
+
+  if (.is_available(chain)) {
+    if (!is.character(chain)) {
+      stop("Please provide the chain file path 'chain' as a string.")
+    }
+  }
+
+  if (.is_available(bfc)) {
+    if (!is(bfc, "BiocFileCache") && !isS4(bfc)) {
+      stop("Please provide a 'BiocFileCache' object 'bfc'.")
+    }
+  }
+
+  # Check if GRanges object is provided
+  if (anyNA(GenomeInfoDb::genome(x))) {
+    stop("The genome information is missing. Please set genome(x) before using easylift.")
+  }
+
+  # Check if the input GRanges contains genomic coordinates from multiple genomes
+  unique_genomes <- unique(GenomeInfoDb::genome(x))
+  if (length(unique_genomes) > 1) {
+    stop(
+      "The 'GRanges' object 'x' contains genomic coordinates from multiple genomes. ",
+      "Please provide 'x' with coordinates from a single genome assembly."
+    )
+  }
+
+  return(list(
+    x = x,
+    to = to,
+    chain = chain,
+    bfc = bfc,
+    unique_genomes = unique(GenomeInfoDb::genome(x))
+  ))
 }
