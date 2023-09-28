@@ -56,8 +56,9 @@ gr <- GRanges(
     start = 1, end = 200000
   )
 )
+# Here, "hg19" is the source genome
 genome(gr) <- "hg19"
-to <- "hg38"
+
 # Here, we use the `system.file()` function because the chain file is in the
 # package (however if you need to point to any other file on your machine,
 # just do 'chain <- "path/to/your/hg19ToHg38.over.chain.gz"'):
@@ -68,24 +69,31 @@ gr
 
 ## Run
 
+Provide the `GenomicRanges` object, target genome (e.g. `hg38`) and the chain file
+
 ```{r run}
-easylift(gr, to, chain)
+# Here, "hg38" is the target genome
+easylift(gr, "hg38", chain)
 ```
 
-## BiocFileCache
+## Run with BiocFileCache
 
-To use `BiocFileCache` for the chain file, you can add it to the cache
-as follows:
+To use `BiocFileCache` for the chain file, add it to the cache as follows:
 
 ```{r bioCache, eval=FALSE}
 chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
-bfcadd(bfc, chain_file)
+
+# Add chain file to cache if already not available
+if (nrow(bfcquery(bfc, basename(chain_file))) == 0)
+    bfcadd(bfc, chain_file)
 ```
 
-Then, you can use it in `easylift` like this:
+Then, use it in `easylift` like this:
 
 ```{r bioCache2, eval=FALSE}
+easylift(gr, "hg38") 
+# or
 gr |> easylift("hg38")
 ```
 
