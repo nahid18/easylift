@@ -1,10 +1,11 @@
 Package: easylift
 Title: An R package to perform genomic liftover
-Version: 0.99.8
+Version: 0.99.9
 Date: 2023-09-25
 Authors@R: 
     c(
-    person("Abdullah", "Al Nahid", email= "abdnahid56@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4390-0768")), 
+    person("Abdullah", "Al Nahid", email= "abdnahid56@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4390-0768")),
+    person("Hervé", "Pagès", role = c("aut", "rev")),
     person("Michael", "Love", email = "michaelisaiahlove@gmail.com", role = c("aut", "rev"), comment = c(ORCID = "0000-0001-8401-0545"))
     )
 Description: The package performs genomic liftover between different genome assemblies given GRanges object, target genome and chain file. If the chain file is cached with BiocFileCache, the chain file argument can be omitted.
