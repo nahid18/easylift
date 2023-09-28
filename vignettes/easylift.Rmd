@@ -6,6 +6,9 @@ author:
 - name: Abdullah Al Nahid
   affiliation: 
   - "Department of Biochemistry and Molecular Biology, Shahjalal University of Science and Technology, Sylhet, Bangladesh"
+- name: Hervé Pagès
+  affiliation: 
+  - "Fred Hutchinson Cancer Research Center, Seattle, WA, USA"
 - name: Michael I. Love
   affiliation: 
   - "Biostatistics Department, University of North Carolina-Chapel Hill, Chapel Hill, NC, USA"
