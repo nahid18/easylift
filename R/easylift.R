@@ -198,6 +198,6 @@ easylift <- function(x, to, chain, bfc) {
     to = to,
     chain = chain,
     bfc = bfc,
-    unique_genomes = unique(GenomeInfoDb::genome(x))
+    unique_genomes = unique_genomes
   ))
 }
