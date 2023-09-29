@@ -36,7 +36,16 @@ knitr::opts_chunk$set(
 ## Installation
 
 ```{r install, eval=FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
 BiocManager::install("easylift")
+```
+
+## Documentation
+To view documentation:
+```{r doc, eval = FALSE}
+browseVignettes("easylift")
 ```
 
 ## Import
@@ -72,7 +81,7 @@ gr
 
 ## Run
 
-Provide the `GenomicRanges` object, target genome (e.g. `hg38`) and the chain file
+Call `easylift` with `GRanges` object, target genome and the chain file.
 
 ```{r run}
 # Here, "hg38" is the target genome
@@ -81,7 +90,7 @@ easylift(gr, "hg38", chain)
 
 ## Run with BiocFileCache
 
-To use `BiocFileCache` for the chain file, add it to the cache as follows:
+To use `BiocFileCache` for the chain file, add it to the cache:
 
 ```{r bioCache, eval=FALSE}
 chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
@@ -91,9 +100,7 @@ bfc <- BiocFileCache()
 if (nrow(bfcquery(bfc, basename(chain_file))) == 0)
     bfcadd(bfc, chain_file)
 ```
-
-Then, use it in `easylift` like this:
-
+Then, use it in `easylift`:
 ```{r bioCache2, eval=FALSE}
 easylift(gr, "hg38") 
 # or

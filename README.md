@@ -14,14 +14,22 @@ and `chain` file.
 
 ## Installation
 
-Get the latest development version from
-[GitHub](https://github.com/nahid18/easylift) with:
-
 ``` r
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
 BiocManager::install("easylift")
 ```
 
-## Usage
+## Documentation
+
+To view documentation:
+
+``` r
+browseVignettes("easylift")
+```
+
+## Import
 
 Import the libraries
 
@@ -29,7 +37,7 @@ Import the libraries
 library("easylift")
 ```
 
-Call `easylift` with `GRanges` object, target genome and chain file.
+Call `easylift` with `GRanges` object, target genome and the chain file.
 
 ``` r
 gr <- GRanges(
@@ -52,8 +60,7 @@ easylift(gr, "hg38", chain)
 
 ### BiocFileCache
 
-To use `BiocFileCache` for the chain file, add it to the cache as
-follows:
+To use `BiocFileCache` for the chain file, add it to the cache:
 
 ``` r
 chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
@@ -64,7 +71,7 @@ if (nrow(bfcquery(bfc, basename(chain_file))) == 0)
     bfcadd(bfc, chain_file)
 ```
 
-Then, use it in `easylift` like this:
+Then, use it in `easylift`:
 
 ``` r
 easylift(gr, "hg38") 
@@ -77,7 +84,7 @@ gr |> easylift("hg38")
 To cite package `easylift` in publications use:
 
 Al Nahid A, Pagès H, Love M (2023). *easylift: An R package to perform
-genomic liftover*. R package version 0.99.96,
+genomic liftover*. R package version 0.99.97,
 <https://github.com/nahid18/easylift>.
 
 A BibTeX entry for LaTeX users is
@@ -86,7 +93,7 @@ A BibTeX entry for LaTeX users is
         title = {easylift: An R package to perform genomic liftover},
         author = {Abdullah Al Nahid, Hervé Pagès, Michael Love},
         year = {2023},
-        note = {R package version 0.99.96},
+        note = {R package version 0.99.97},
         url = {https://github.com/nahid18/easylift},
       }
 

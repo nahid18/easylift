@@ -1,6 +1,6 @@
 Package: easylift
 Title: An R package to perform genomic liftover
-Version: 0.99.96
+Version: 0.99.97
 Date: 2023-09-25
 Authors@R: 
     c(
@@ -8,9 +8,10 @@ Authors@R:
     person("Hervé", "Pagès", role = c("aut", "rev")),
     person("Michael", "Love", email = "michaelisaiahlove@gmail.com", role = c("aut", "rev"), comment = c(ORCID = "0000-0001-8401-0545"))
     )
-Description: The package performs genomic liftover between different genome assemblies given GRanges object, target genome and chain file. If the chain file is cached with BiocFileCache, the chain file argument can be omitted.
+Description: The easylift package provides a convenient tool for genomic liftover operations between different genome assemblies. It seamlessly works with Bioconductor's GRanges objects and chain files from the UCSC Genome Browser, allowing for straightforward handling of genomic ranges across various genome versions. One noteworthy feature of easylift is its integration with the BiocFileCache package. This integration automates the management and caching of chain files necessary for liftover operations. Users no longer need to manually specify chain file paths in their function calls, reducing the complexity of the liftover process.
 License: MIT + file LICENSE
 URL: https://github.com/nahid18/easylift, https://nahid18.github.io/easylift
+BugReports: https://github.com/nahid18/easylift/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -21,7 +22,8 @@ Imports:
     rtracklayer,
     GenomeInfoDb,
     R.utils,
-    tools
+    tools,
+    methods
 Suggests: 
     testthat (>= 3.0.0),
     IRanges,
@@ -30,4 +32,4 @@ Suggests:
     rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-biocViews: Workflow, BasicWorkflow
+biocViews: Software, WorkflowStep, Sequencing, Coverage, GenomeAssembly, DataImport

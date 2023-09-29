@@ -32,7 +32,7 @@
 #' # Here, "hg38" is the target genome
 #' easylift(gr, "hg38", chain)
 #'
-#' \dontrun{
+#' \donttest{
 #' # To use `BiocFileCache` for the chain file, add it to the cache as follows:
 #' chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 #' bfc <- BiocFileCache()
@@ -53,6 +53,7 @@
 #' @import R.utils
 #' @import tools
 #' @import BiocFileCache
+#' @import methods
 #' @seealso
 #' \code{\link[rtracklayer]{liftOver}} function from the \code{rtracklayer} package,
 #' which is the basis for \code{easylift}.
@@ -150,41 +151,31 @@ easylift <- function(x, to, chain, bfc) {
   if (missing(bfc)) {
     bfc <- NULL
   }
-
   if (.is_faulty(x)) {
     stop("Please provide a 'GRanges' object 'x' with genomic coordinates.")
   }
-
-  if (!is(x, "GRanges") && !isS4(x)) {
+  if (!is(x, "GRanges")) {
     stop("Please provide a valid 'GRanges' object 'x'.")
   }
-
   if (.is_faulty(to)) {
     stop("Please provide the target genome assembly 'to'.")
   }
-
   if (!is.character(to)) {
     stop("Please provide the target genome assembly 'to' as a string.")
   }
-
   if (.is_available(chain)) {
     if (!is.character(chain)) {
       stop("Please provide the chain file path 'chain' as a string.")
     }
   }
-
   if (.is_available(bfc)) {
-    if (!is(bfc, "BiocFileCache") && !isS4(bfc)) {
+    if (!is(bfc, "BiocFileCache")) {
       stop("Please provide a 'BiocFileCache' object 'bfc'.")
     }
   }
-
-  # Check if GRanges object is provided
   if (anyNA(GenomeInfoDb::genome(x))) {
     stop("The genome information is missing. Please set genome(x) before using easylift.")
   }
-
-  # Check if the input GRanges contains genomic coordinates from multiple genomes
   unique_genomes <- unique(GenomeInfoDb::genome(x))
   if (length(unique_genomes) > 1) {
     stop(
@@ -192,7 +183,6 @@ easylift <- function(x, to, chain, bfc) {
       "Please provide 'x' with coordinates from a single genome assembly."
     )
   }
-
   return(list(
     x = x,
     to = to,

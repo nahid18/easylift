@@ -44,7 +44,7 @@ chain <- system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift"
 # Here, "hg38" is the target genome
 easylift(gr, "hg38", chain)
 
-\dontrun{
+\donttest{
 # To use `BiocFileCache` for the chain file, add it to the cache as follows:
 chain_file <- "/path/to/your/hg19ToHg38.over.chain.gz"
 bfc <- BiocFileCache()
