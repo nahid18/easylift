@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">easylift</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.96</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.97</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,12 +116,22 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"easylift"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"easylift"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h3>
+<p>To view documentation:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"easylift"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="import">Import<a class="anchor" aria-label="anchor" href="#import"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/nahid18/easylift" class="external-link">"easylift"</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: GenomicRanges</span></span>
 <span><span class="co">#&gt; Loading required package: stats4</span></span>
@@ -158,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </h3>
 <p>Create a <code>GRanges</code> object, assign a genome to it, and
 specify chain file</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span></span>
 <span>  seqname <span class="op">=</span> <span class="fu">Rle</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chr1"</span>, <span class="st">"chr2"</span><span class="op">)</span>, </span>
@@ -197,9 +207,9 @@ specify chain file</p>
 <div class="section level3">
 <h3 id="run">Run<a class="anchor" aria-label="anchor" href="#run"></a>
 </h3>
-<p>Provide the <code>GenomicRanges</code> object, target genome
-(e.g. <code>hg38</code>) and the chain file</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Call <code>easylift</code> with <code>GRanges</code> object, target
+genome and the chain file.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Here, "hg38" is the target genome</span></span>
 <span><span class="fu"><a href="../reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span>, <span class="va">chain</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GRanges object with 300000 ranges and 0 metadata columns:</span></span>
@@ -223,16 +233,16 @@ specify chain file</p>
 <h3 id="run-with-biocfilecache">Run with BiocFileCache<a class="anchor" aria-label="anchor" href="#run-with-biocfilecache"></a>
 </h3>
 <p>To use <code>BiocFileCache</code> for the chain file, add it to the
-cache as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+cache:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chain_file</span> <span class="op">&lt;-</span> <span class="st">"/path/to/your/hg19ToHg38.over.chain.gz"</span></span>
 <span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Add chain file to cache if already not available</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcquery</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">chain_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcadd</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">chain_file</span><span class="op">)</span></span></code></pre></div>
-<p>Then, use it in <code>easylift</code> like this:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Then, use it in <code>easylift</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/easylift.html">easylift</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">"hg38"</span><span class="op">)</span> </span>
 <span><span class="co"># or</span></span>
 <span><span class="va">gr</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/easylift.html">easylift</a></span><span class="op">(</span><span class="st">"hg38"</span><span class="op">)</span></span></code></pre></div>
@@ -268,7 +278,7 @@ by its terms.</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.3.1 (2023-06-16)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
@@ -292,7 +302,7 @@ by its terms.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] easylift_0.99.96     BiocFileCache_2.8.0  dbplyr_2.3.3        </span></span>
+<span><span class="co">#&gt; [1] easylift_0.99.97     BiocFileCache_2.8.0  dbplyr_2.3.4        </span></span>
 <span><span class="co">#&gt; [4] GenomicRanges_1.52.0 GenomeInfoDb_1.36.3  IRanges_2.34.1      </span></span>
 <span><span class="co">#&gt; [7] S4Vectors_0.38.2     BiocGenerics_0.46.0  BiocStyle_2.28.1    </span></span>
 <span><span class="co">#&gt; </span></span>
