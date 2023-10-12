@@ -30,9 +30,6 @@ test_that("easylift function tests with valid chain files", {
     easylift(x = gr2, to = "hg38", chain = chain_path),
     easylift(x = gr2, to = "hg38", chain = chain_path_gz)
   )
-
-  expect_no_error(easylift(gr2, "hg38"))
-  expect_no_error(gr2 |> easylift("hg38"))
 })
 
 test_that("easylift function tests with error cases", {
@@ -94,6 +91,9 @@ test_that("easylift succeeds with BiocFileCache", {
                                ranges = IRanges::IRanges(start = 1, end = 200000))
 
   genome(gr) <- "hg19"
+
+  expect_no_error(easylift(gr, "hg38"))
+  expect_no_error(gr |> easylift("hg38"))
 
   expect_error(easylift(gr, "hg38", bfc))
   expect_error(gr |> easylift("hg38", bfc))
