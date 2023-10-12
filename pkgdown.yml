@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   easylift: easylift.html
-last_built: 2023-10-12T09:15Z
+last_built: 2023-10-12T20:09Z
 urls:
   reference: https://nahid18.github.io/easylift/reference
   article: https://nahid18.github.io/easylift/articles
