@@ -97,53 +97,15 @@ test_that("easylift succeeds with BiocFileCache", {
 
   expect_error(easylift(gr, "hg38", bfc))
   expect_error(gr |> easylift("hg38", bfc))
+
   expect_no_error(easylift(gr, "hg38", NULL, bfc))
   expect_no_error(gr |> easylift("hg38", NULL, NULL))
   expect_no_error(gr |> easylift("hg38", NULL))
 
-  # Test success when bfc is provided
-  tryCatch({
-    result <- easylift(x = gr, to = "hg38", bfc = bfc)
-  }, error = function(e) {
-    cat("Error message:", conditionMessage(e), "\n")
-    stop("easylift encountered an error.")
-  })
-
-  expect_true(!is(result, "try-error"),
-              "easylift should succeed without error.")
-
-  # Test success when bfc is NULL
-  tryCatch({
-    result2 <- easylift(x = gr, to = "hg38", bfc = NULL)
-  }, error = function(e) {
-    cat("Error message:", conditionMessage(e), "\n")
-    stop("easylift encountered an error.")
-  })
-
-  expect_true(!is(result2, "try-error"),
-              "easylift should succeed without error.")
-
-  # Test success when chain is NULL
-  tryCatch({
-    result3 <- easylift(x = gr, to = "hg38", chain = NULL)
-  }, error = function(e) {
-    cat("Error message:", conditionMessage(e), "\n")
-    stop("easylift encountered an error.")
-  })
-
-  expect_true(!is(result3, "try-error"),
-              "easylift should succeed without error.")
-
-  # Test success when both bfc and chain are NULL
-  tryCatch({
-    result4 <- easylift(x = gr, to = "hg38", chain = NULL, bfc = NULL)
-  }, error = function(e) {
-    cat("Error message:", conditionMessage(e), "\n")
-    stop("easylift encountered an error.")
-  })
-
-  expect_true(!is(result4, "try-error"),
-              "easylift should succeed without error.")
+  expect_no_error(easylift(x = gr, to = "hg38", bfc = bfc))
+  expect_no_error(easylift(x = gr, to = "hg38", bfc = NULL))
+  expect_no_error(easylift(x = gr, to = "hg38", chain = NULL))
+  expect_no_error(easylift(x = gr, to = "hg38", chain = NULL, bfc = NULL))
 
   # Test error when provided bfc is not a BiocFileCache instance
   expect_error(easylift(x = gr, to = "hg38", bfc = "bfc"))
