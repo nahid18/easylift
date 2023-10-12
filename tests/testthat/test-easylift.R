@@ -33,8 +33,6 @@ test_that("easylift function tests with valid chain files", {
 
   expect_no_error(easylift(gr2, "hg38"))
   expect_no_error(gr2 |> easylift("hg38"))
-  expect_no_error(gr2 |> easylift("hg38", NULL, NULL))
-  expect_no_error(gr2 |> easylift("hg38", NULL))
 })
 
 test_that("easylift function tests with error cases", {
@@ -100,6 +98,8 @@ test_that("easylift succeeds with BiocFileCache", {
   expect_error(easylift(gr, "hg38", bfc))
   expect_error(gr |> easylift("hg38", bfc))
   expect_no_error(easylift(gr, "hg38", NULL, bfc))
+  expect_no_error(gr |> easylift("hg38", NULL, NULL))
+  expect_no_error(gr |> easylift("hg38", NULL))
 
   # Test success when bfc is provided
   tryCatch({
