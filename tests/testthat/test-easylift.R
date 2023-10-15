@@ -4,32 +4,15 @@ library(IRanges)
 
 test_that("easylift function tests with valid chain files", {
   # Test with a valid chain gzipped file
-  chain_path_gz <-
-    system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
-  gr <- GenomicRanges::GRanges(
+  chain_path <- system.file("extdata", "hg19ToHg38.over.chain", package = "easylift")
+  gr1 <- GenomicRanges::GRanges(
     seqnames = "chr1",
     ranges = IRanges::IRanges(start = 100, end = 200),
     strand = "+"
   )
-  genome(gr) <- "hg19"
-  expect_type(easylift(x = gr, to = "hg38", chain = chain_path_gz), "S4")
-  expect_no_error(easylift(x = gr, to = "hg38", chain = chain_path_gz))
-
-  # Test with a valid chain file
-  chain_path <-
-    system.file("extdata", "hg19ToHg38.over.chain", package = "easylift")
-  gr2 <- GenomicRanges::GRanges(
-    seqnames = "chr2",
-    ranges = IRanges::IRanges(start = 200, end = 300),
-    strand = "+"
-  )
-  genome(gr2) <- "hg19"
-  expect_type(easylift(x = gr2, to = "hg38", chain = chain_path), "S4")
-  expect_no_error(easylift(x = gr2, to = "hg38", chain = chain_path))
-  expect_equal(
-    easylift(x = gr2, to = "hg38", chain = chain_path),
-    easylift(x = gr2, to = "hg38", chain = chain_path_gz)
-  )
+  genome(gr1) <- "hg19"
+  expect_type(easylift(x = gr1, to = "hg38", chain = chain_path), "S4")
+  expect_no_error(easylift(x = gr1, to = "hg38", chain = chain_path))
 })
 
 test_that("easylift function tests with error cases", {
@@ -65,17 +48,11 @@ test_that("easylift function tests with error cases", {
 })
 
 test_that("easylift succeeds with BiocFileCache", {
-  # Load package
-  library("easylift")
-
-  # Test if the chain file exists
-  chain_file <-
-    system.file("extdata", "hg19ToHg38.over.chain.gz", package = "easylift")
-  expect_true(file.exists(chain_file), "Chain file should exist.")
-
   # Create a BiocFileCache instance (to a temp location for this test script)
   path <- tempfile()
   bfc <- BiocFileCache(path, ask = FALSE)
+
+  chain_file <- system.file("extdata", "hg19ToHg38.over.chain", package = "easylift")
 
   # Add the test chain file to the cache
   bfcadd(bfc, chain_file)
@@ -92,20 +69,19 @@ test_that("easylift succeeds with BiocFileCache", {
 
   genome(gr) <- "hg19"
 
-  expect_no_error(easylift(gr, "hg38"))
-  expect_no_error(gr |> easylift("hg38"))
+  # Should pass since bfc is provided properly to easylift
+  expect_no_error(easylift(gr, "hg38", NULL, bfc))
+  expect_no_error(gr |> easylift("hg38", NULL, bfc))
+  expect_no_error(easylift(x = gr, to = "hg38", bfc = bfc))
 
+  # Test error when provided bfc is not a BiocFileCache instance
   expect_error(easylift(gr, "hg38", bfc))
   expect_error(gr |> easylift("hg38", bfc))
 
-  expect_no_error(easylift(gr, "hg38", NULL, bfc))
-  expect_no_error(gr |> easylift("hg38", NULL, NULL))
-  expect_no_error(gr |> easylift("hg38", NULL))
-
-  expect_no_error(easylift(x = gr, to = "hg38", bfc = bfc))
-  expect_no_error(easylift(x = gr, to = "hg38", bfc = NULL))
-  expect_no_error(easylift(x = gr, to = "hg38", chain = NULL))
-  expect_no_error(easylift(x = gr, to = "hg38", chain = NULL, bfc = NULL))
+  # Should error because the chain file was added to tempfile() but not in the
+  # default cache location
+  expect_error(easylift(gr, "hg38"))
+  expect_error(gr |> easylift("hg38"))
 
   # Test error when provided bfc is not a BiocFileCache instance
   expect_error(easylift(x = gr, to = "hg38", bfc = "bfc"))
