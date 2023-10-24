@@ -1,7 +1,7 @@
 Package: easylift
 Title: An R package to perform genomic liftover
 Version: 1.0.0
-Date: 2023-10-12
+Date: 2023-10-24
 Authors@R: 
     c(
     person("Abdullah", "Al Nahid", email= "abdnahid56@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4390-0768")),
