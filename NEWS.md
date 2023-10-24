@@ -1,3 +1,8 @@
+# easylift 1.1.0
+
+* Bioconductor release 3.18
+
+
 # easylift 0.99.9
 
 * Bug fixes and further improvements to the code.
