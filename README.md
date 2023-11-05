@@ -10,7 +10,9 @@ pulls](https://img.shields.io/github/issues-pr/nahid18/easylift)](https://github
 <!-- badges: end -->
 
 The goal of `easylift` is to perform genomic liftover given `GRanges`
-and `chain` file.
+and `chain` file. `easylift` was developed as part of the 
+[tidyomics project](https://www.biorxiv.org/content/10.1101/2023.09.10.557072v2)'s
+[open challenges](https://github.com/orgs/tidyomics/projects/1).
 
 ## Installation
 
