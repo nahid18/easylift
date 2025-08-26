@@ -52,8 +52,9 @@ gr <- GRanges(
     end = 200000
   )
 )
-# Here, "hg19" is the source genome
+# "hg19" is the source genome
 genome(gr) <- "hg19"
+# chain file path
 chain <- "hg19ToHg38.over.chain.gz"
 
 # Here, "hg38" is the target genome
